@@ -4,6 +4,8 @@ import "./globals.css";
 import Providers from "@/providers/providers";
 import { cn } from "@/lib/utils";
 
+import { Navbar } from "@/components/shared/navbar";  
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,7 +24,10 @@ export default function RootLayout({
         className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}
       >
         <Providers>
-          {children}
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
