@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/providers/providers";
+import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 
-import { Navbar } from "@/components/shared/navbar";  
+import { Navbar } from "@/components/shared/navbar/navbar";
+import { Footer } from "@/components/shared/footer/footer";  
+import { ScrollToTop } from "@/components/shared/scroll-to-top";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,10 +27,19 @@ export default function RootLayout({
         className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}
       >
         <Providers>
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <ScrollToTop />
+            <Footer />
+          </ThemeProvider>
         </Providers>
       </body>
     </html>
