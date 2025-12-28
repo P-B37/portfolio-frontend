@@ -10,10 +10,8 @@ import { StatusIndicator } from "../shared/status-indicator/status-indicator";
 import { MotionDiv, MotionH1, MotionP } from "../shared/motion-wrapper";
 
 const ROLES = [
-  "Software Developer",
-  "Backend Engineer",
-  "Frontend Developer",
-  "Cisco Network Engineer",
+  "Backend Software Developer",
+  "Network Engineer",
   "AI/ML Enthusiast",
 ];
 
@@ -60,9 +58,9 @@ export function Hero() {
   }), [shouldReduceMotion]);
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-background px-6 text-center">
-      
-      {/* Background Elements... (Same as before) */}
+    <section className={cn("relative flex min-h-[90vh] flex-col items-center",
+    "justify-center overflow-hidden bg-background px-6 text-center")}>
+
       <div
         className={cn(
           "absolute inset-0 pointer-events-none",
@@ -70,7 +68,8 @@ export function Hero() {
           "[background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"
         )}
       />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_20%,theme(colors.background)_80%)]" />
+      <div className={cn("absolute inset-0 -z-10",
+        "bg-[radial-gradient(ellipse_at_center,transparent_20%,theme(colors.background)_80%)]")} />
 
       {/* Main Content */}
       <MotionDiv
@@ -81,7 +80,8 @@ export function Hero() {
       >
         {/* Badge */}
         <MotionDiv variants={itemVariants} className="mb-6 flex justify-center">
-          <div className="inline-flex items-center rounded-full border border-border bg-background/50 px-3 py-1 text-sm font-medium backdrop-blur-sm">
+          <div className={cn("inline-flex items-center rounded-full",
+            "border border-border bg-background/50 px-3 py-1 text-sm font-medium backdrop-blur-sm")}>
             <StatusIndicator status="active" label="Available for new projects" labelClassName='text-bold' />
           </div>
         </MotionDiv>
@@ -108,10 +108,8 @@ export function Hero() {
           variants={itemVariants}
           className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl leading-relaxed"
         >
-          I build scalable web applications and backend systems with{" "}
-          <span className="font-medium text-foreground">Python/Django</span> &{" "}
-          <span className="font-medium text-foreground">Next.js</span>. 
-          Solving real-world problems through AI/ML solutions.
+          I design scalable backend systems and secure network architectures
+          for production-grade applications.
         </MotionP>
 
         {/* CTA Buttons */}

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, Linkedin, Twitter } from 'lucide-react'
+import { Github, Linkedin, Twitter, YoutubeIcon } from 'lucide-react'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { MotionDiv } from './motion-wrapper'
 import { cn } from '@/lib/utils'
@@ -9,6 +9,7 @@ interface FooterSocialsProps {
   showGithub?: boolean
   showLinkedin?: boolean
   showTwitter?: boolean
+  showYoutube?: boolean
   showModeToggle?: boolean
 }
 
@@ -17,6 +18,7 @@ export function Socials({
   showGithub = true,
   showLinkedin = true,
   showTwitter = true,
+  showYoutube = false,
   showModeToggle = true,
 }: FooterSocialsProps) {
   return (
@@ -63,6 +65,21 @@ export function Socials({
             transition={{ type: 'spring', stiffness: 300 }}
           >
             <Twitter className="h-4 w-4" />
+          </MotionDiv>
+        </Link>
+      )}
+
+      {showYoutube && (
+        <Link
+          href="https://www.youtube.com/@NdezeBonheur"
+          target="_blank"
+          className="text-muted-foreground hover:text-foreground"
+        >
+          <MotionDiv
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
+            <YoutubeIcon className="h-4 w-4" />
           </MotionDiv>
         </Link>
       )}

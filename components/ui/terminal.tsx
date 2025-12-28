@@ -7,6 +7,7 @@ import { Terminal as GoTerminal } from "lucide-react"
 type TerminalStep = {
   text: string
   bold?: boolean
+  variant?: "default" | "muted" | "accent"
 }
 
 type TerminalProps = {
@@ -16,7 +17,23 @@ type TerminalProps = {
   showLocalhost?: boolean
   hostBarTitle?: string
   hostMessage?: string
+
+  fontClassName?: string
+  commandClassName?: string
+  outputClassName?: string
 }
+
+const stepVariantClass = (variant?: TerminalStep["variant"]) => {
+  switch (variant) {
+    case "muted":
+      return "text-muted-foreground"
+    case "accent":
+      return "text-primary"
+    default:
+      return "text-foreground"
+  }
+}
+
 
 function MacControls() {
   return (
@@ -48,6 +65,9 @@ const Terminal = ({
   showLocalhost = true,
   hostBarTitle = "localhost:3000",
   hostMessage = "New App Created!",
+  commandClassName,
+  outputClassName,
+  fontClassName,  
 }: TerminalProps) => {
   const typingLen = useMemo(() => command.length, [command])
   const revealLen = useMemo(() => steps.length, [steps])
@@ -68,7 +88,10 @@ const Terminal = ({
   const isTyping = counter < typingLen
 
   elements.push(
-    <span key="command" className="text-foreground">
+    <span
+      key="command"
+      className={commandClassName ?? "text-foreground"}
+    >
       {command.substring(0, typedChars)}
       {isTyping && (
         <div className="bg-foreground inline-block h-3 w-1 animate-pulse" />
@@ -86,9 +109,13 @@ const Terminal = ({
       elements.push(
         <span
           key={`step-${i}`}
-          className={
-            step.bold ? "text-foreground font-bold" : "text-foreground"
-          }
+          className={[
+            stepVariantClass(step.variant),
+            outputClassName,
+            step.bold && "font-bold",
+          ]
+            .filter(Boolean)
+            .join(" ")}
         >
           {step.text}
         </span>
@@ -111,12 +138,17 @@ const Terminal = ({
         <LocalHost title={hostBarTitle} message={hostMessage} />
       )}
 
-      <pre className="bg-card w-full min-w-[320px] overflow-hidden rounded-xl border text-[11px] shadow-lg sm:min-w-[480px] sm:text-[12px] md:min-w-[600px] md:text-[13px]">
-        <div className="bg-muted flex flex-row items-center gap-2 border-b px-3 py-2 sm:px-4">
+      <pre className="bg-background w-full min-w-[320px] overflow-hidden rounded-xl border text-[11px] shadow-lg sm:min-w-[480px] sm:text-[12px] md:min-w-[600px] md:text-[13px]">
+        <div className="bg-background flex flex-row items-center gap-2 border-b px-3 py-2 sm:px-4">
           <MacControls />
         </div>
-        <div className="from-background to-muted min-h-[150px] bg-gradient-to-b sm:min-h-[180px] md:min-h-[200px]">
-          <div className="grid p-3 whitespace-pre-wrap sm:p-4">{elements}</div>
+        <div className="md:min-h-[200px]">
+          <div
+            className={[
+              fontClassName ?? "font-mono",
+              "leading-relaxed whitespace-pre-wrap p-4",
+            ].join(" ")}
+          >{elements}</div>
         </div>
       </pre>
     </div>
