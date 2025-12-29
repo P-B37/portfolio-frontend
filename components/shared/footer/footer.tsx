@@ -1,5 +1,4 @@
 import { FooterBrand } from './footer-brand'
-import { FooterLinks } from './footer-links'
 import { Socials } from '../socials'
 import { FooterMeta } from './footer-meta'
 import { EmailCTA } from './email-cta'

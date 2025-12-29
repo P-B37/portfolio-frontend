@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
       title: `${post.title} | E.Ndeze`,
       description: post.summary,
     };
-  } catch (error: unknown) {
+  } catch {
     return {
       title: "Post Not Found",
     };

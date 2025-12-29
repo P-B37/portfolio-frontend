@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProjects, getFeaturedProjects, getProjectBySlug } from "../api";
-import { de } from "zod/v4/locales";
 
 export const projectQueryKeys = {
   all: ["projects"] as const,
