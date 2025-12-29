@@ -6,8 +6,9 @@ import { format } from "date-fns";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 import { Props } from "@/features/blog/types";
+import { isAxiosError } from "axios";
 import { getBlogPostBySlug } from "@/features/blog/api";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 export async function generateMetadata({ params }: Props) {
   // Await the params first!
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
       title: `${post.title} | E.Ndeze`,
       description: post.summary,
     };
-  } catch (error) {
+  } catch (error: unknown) {
     return {
       title: "Post Not Found",
     };
@@ -35,9 +36,9 @@ export default async function BlogPostPage({ params }: Props) {
 
   try {
     post = await getBlogPostBySlug(slug);
-  } catch (error: any) {
+  } catch (error) {
     // If Django says 404, we tell Next.js to show the Not Found UI
-    if (error.response?.status === 404) {
+    if (isAxiosError(error) && error.response?.status === 404) {
       notFound();
     }
     // For other errors, you might want to throw them to trigger an Error Boundary

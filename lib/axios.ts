@@ -15,7 +15,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     // Now this will actually print your Django error details
-    console.error("API error:", error.response?.data || error.message);
+    // console.error("API error:", error.response?.data || error.message);
     return Promise.reject(error);
-  }
+  } 
 );
